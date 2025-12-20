@@ -572,7 +572,7 @@ export default function Home() {
             </p>
             <div className="flex gap-6">
               <a
-                href="https://github.com/ddalbend"
+                href="https://github.com/davidedalce"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-zinc-500 hover:text-emerald-400 transition-colors duration-300"
