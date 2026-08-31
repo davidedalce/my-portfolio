@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Intro from "@/components/Intro";
 
 const navItems = [
@@ -153,6 +153,7 @@ export default function Home() {
   const [showContent, setShowContent] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -199,6 +200,7 @@ export default function Home() {
       });
       
       setActiveSection(id);
+      setMenuOpen(false);
     }
   };
 
@@ -213,7 +215,9 @@ export default function Home() {
         animate={showContent ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-[#0a0a0a]/90 backdrop-blur-md shadow-lg shadow-black/20" : "bg-transparent"
+          scrolled || menuOpen
+            ? "bg-[#0a0a0a]/90 backdrop-blur-md shadow-lg shadow-black/20"
+            : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
@@ -250,13 +254,59 @@ export default function Home() {
               Get in Touch
             </a>
 
-            <button className="md:hidden text-zinc-400 hover:text-white">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              className="md:hidden text-zinc-400 hover:text-white"
+            >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                />
               </svg>
             </button>
           </div>
         </div>
+
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="md:hidden overflow-hidden border-t border-zinc-800/50"
+            >
+              <div className="px-6 sm:px-10 py-4 flex flex-col gap-1">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`py-3 text-left text-sm font-medium transition-colors duration-300 ${
+                      activeSection === item.id
+                        ? "text-emerald-400"
+                        : "text-zinc-400 hover:text-white"
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+                <a
+                  href="mailto:dalce02@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-block text-center px-4 py-3 border border-emerald-500 text-emerald-400 rounded text-sm font-medium hover:bg-emerald-500/10 transition-colors duration-300"
+                >
+                  Get in Touch
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
       {/* Main Content */}
