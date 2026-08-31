@@ -15,13 +15,21 @@ const navItems = [
 
 const experiences = [
   {
-    period: "Jun 2025 – Present",
+    period: "Feb 2026 – Present",
+    company: "Voodoo",
+    role: "Data Scientist",
+    location: "Paris, France",
+    description:
+      "Driving data science for a portfolio of real-money mobile games used by hundreds of millions of people. Building predictive models and experimentation frameworks that guide user acquisition, monetization, and product strategy.",
+  },
+  {
+    period: "Jun 2025 – Feb 2026",
     company: "Bending Spoons",
     role: "Data Scientist",
     location: "Milan, Italy",
     highlight: "$1.56M+ revenue",
     description:
-      "Building data infrastructure and analytics for consumer apps with millions of users. Designing ETL pipelines and analytics layers on BigQuery, running A/B tests to inform product decisions, and delivering insights that shape product roadmaps.",
+      "Built data infrastructure and analytics for consumer apps with millions of users. Designed ETL pipelines and analytics layers on BigQuery, ran A/B tests to inform product decisions, and delivered insights that shaped product roadmaps.",
   },
   {
     period: "Sep 2024 – Jun 2025",
@@ -346,7 +354,8 @@ export default function Home() {
               variants={itemVariants}
             >
               Data Scientist at{" "}
-              <span className="text-zinc-200">Bending Spoons</span>.{" "}
+              <span className="text-zinc-200">Voodoo</span> in Paris,
+              previously at <span className="text-zinc-200">Bending Spoons</span>.{" "}
               <span className="text-zinc-200">Bocconi</span> graduate,{" "}
               <span className="text-zinc-200">Nova SBE</span> Master&apos;s.
               I build ML pipelines, design analytics infrastructure, and run experiments
